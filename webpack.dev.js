@@ -6,5 +6,13 @@ export default merge(common, {
   devtool: "eval-source-map",
   devServer: {
     watchFiles: ["./src/template.html"],
+    proxy: [
+      {
+        context: ["/api"],
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        pathRewrite: { "^/api": "" }, // Strips '/api' before sending to backend if needed
+      },
+    ],
   },
 });
