@@ -1,47 +1,50 @@
 async function getWeatherAPI(location) {
   try {
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=SAESCZN7R5S6P3RM6SVXUHAL3`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?
+      unitGroup=us&key=SAESCZN7R5S6P3RM6SVXUHAL3&contentType=json`,
     );
-    const data = await response.json();
-    if (data) {
-      const weatherData = processDataFromAPI(data);
-      return weatherData;
-    }
+    return await response.json();
   } catch (error) {
     console.error("Failed to fetch data", error);
   }
 }
 
-function processDataFromAPI(data) {
+function getSpecificDataFromAPI(data) {
   const address = data.address;
-  const datetime = data.days[0].datetime;
   const temperature = data.currentConditions.temp;
-  const feelsLike = data.currentConditions.feelslike;
-  const description = data.description;
+  const conditions = data.currentConditions.conditions;
+  const uvindex = data.currentConditions.uvindex;
+  const windspeed = data.currentConditions.windspeed;
+  const precipprob = data.currentConditions.precipprob;
   const icon = data.currentConditions.icon;
-  return { address, datetime, temperature, feelsLike, description, icon };
+  return {
+    address,
+    temperature,
+    conditions,
+    uvindex,
+    windspeed,
+    precipprob,
+    icon,
+  };
 }
 
-function fahrenheitToCelsius(weatherData) {
-  const fahrenheit = weatherData.temperature;
-  const celsius = Math.round(((fahrenheit - 32) * 5) / 9);
-  return celsius;
-}
-
-async function searchWeatherByLocation(location) {
+async function getLocationWeatherData(location) {
   try {
     const weatherData = await getWeatherAPI(location);
-
-    if (weatherData) {
-      console.log("Weather Data:", weatherData);
-
-      const celsius = fahrenheitToCelsius(weatherData);
-      console.log("Celsius Temperature:", celsius);
-    }
+    return getSpecificDataFromAPI(weatherData);
   } catch (error) {
     console.error("Failed to fetch data", error);
   }
 }
 
-export { searchWeatherByLocation };
+function fahrenheitToCelsius(fahrenheit) {
+  return Math.round(((fahrenheit - 32) * 5) / 9);
+}
+
+export {
+  getWeatherAPI,
+  getSpecificDataFromAPI,
+  getLocationWeatherData,
+  fahrenheitToCelsius,
+};
