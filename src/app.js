@@ -2,7 +2,7 @@ async function getWeatherAPI(location) {
   try {
     const response = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?
-      unitGroup=us&key=SAESCZN7R5S6P3RM6SVXUHAL3&contentType=json`,
+      unitGroup=metric&key=SAESCZN7R5S6P3RM6SVXUHAL3&contentType=json`,
     );
     return await response.json();
   } catch (error) {
@@ -12,11 +12,11 @@ async function getWeatherAPI(location) {
 
 function getSpecificDataFromAPI(data) {
   const address = data.address;
-  const temperature = data.currentConditions.temp;
+  const temperature = `${data.currentConditions.temp}°F`;
   const conditions = data.currentConditions.conditions;
   const uvindex = data.currentConditions.uvindex;
-  const windspeed = data.currentConditions.windspeed;
-  const precipprob = data.currentConditions.precipprob;
+  const windspeed = `${data.currentConditions.windspeed} m/s`;
+  const precipprob = `${data.currentConditions.precipprob}%`;
   const icon = data.currentConditions.icon;
   return {
     address,
