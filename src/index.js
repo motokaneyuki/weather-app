@@ -1,5 +1,4 @@
-import { searchWeatherByLocation } from "./app.js";
-import "./styles.css";
+import { initializeForm } from "./dom.js";
+// import "./styles.css";
 
-// for testing
-searchWeatherByLocation("tokyo");
+initializeForm();
