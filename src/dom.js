@@ -1,15 +1,15 @@
 import { getLocationWeatherData, fahrenheitToCelsius } from "./app.js";
 
+const conditions = document.querySelector(".conditions");
+const extraInfo = document.querySelector(".extraInfo");
+const temperature = document.querySelector(".temperature");
+
 function getUserInputLocation() {
   const location = document.querySelector("#location").value;
   return location;
 }
 
 function renderScreen(weather) {
-  const conditions = document.querySelector(".conditions");
-  const extraInfo = document.querySelector(".extraInfo");
-  const temperature = document.querySelector(".temperature");
-
   const keys = [
     "icon",
     "address",
@@ -49,9 +49,14 @@ export function initializeForm() {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const location = getUserInputLocation();
-    console.log("location", location);
     const weather = await getLocationWeatherData(location);
-    console.log("weather", weather);
+    clearScreen();
     renderScreen(weather);
   });
+}
+
+function clearScreen() {
+  conditions.replaceChildren();
+  extraInfo.replaceChildren();
+  temperature.replaceChildren();
 }
