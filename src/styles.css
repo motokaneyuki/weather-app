@@ -1,0 +1,49 @@
+body {
+  background-image: url(./assets/img/sebastien-goldberg-WoB5ISOLg88-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  color: gray;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid whitesmoke;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50%;
+  width: 50%;
+  margin-bottom: 100px;
+  letter-spacing: 2px;
+}
+
+.temperature {
+  align-self: flex-end;
+  padding-bottom: 10px;
+  font-size: 20px;
+}
+
+.conditions {
+  font-size: 100px;
+  padding-bottom: 10px;
+  align-self: center;
+}
+
+.extraInfo {
+  align-self: flex-start;
+}

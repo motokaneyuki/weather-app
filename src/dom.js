@@ -11,8 +11,8 @@ function getUserInputLocation() {
 
 function renderScreen(weather) {
   const keys = [
-    "icon",
-    "address",
+    // "icon",
+    // "address",
     "conditions",
     "uvindex",
     "windspeed",

@@ -1,4 +1,4 @@
 import { initializeForm } from "./dom.js";
-// import "./styles.css";
+import "./styles.css";
 
 initializeForm();
