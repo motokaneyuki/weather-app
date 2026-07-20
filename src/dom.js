@@ -60,6 +60,10 @@ export function initializeForm() {
     e.preventDefault();
     const location = getUserInputLocation();
     weather = await getLocationWeatherData(location);
+    if (!weather) {
+      alert("Location not found. Please try another search.");
+      return;
+    }
     clearScreen();
     renderScreen(weather);
   });
