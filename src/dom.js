@@ -55,6 +55,11 @@ function renderScreen(weather) {
 
 export function initializeForm() {
   const form = document.querySelector("form");
+  const input = document.querySelector("input");
+
+  input.addEventListener("click", (e) => {
+    input.placeholder = "";
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
