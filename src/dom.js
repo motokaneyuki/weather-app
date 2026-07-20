@@ -10,11 +10,6 @@ convert.textContent = "Convert to Celsius";
 
 let weather;
 
-function getUserInputLocation() {
-  const location = document.querySelector("#location").value;
-  return location;
-}
-
 function renderScreen(weather) {
   convertContainer.appendChild(convert);
 
@@ -53,6 +48,19 @@ function renderScreen(weather) {
   });
 }
 
+function getUserInputLocation() {
+  const location = document.querySelector("#location").value;
+  return location;
+}
+
+async function getWeather(location) {
+  const loader = document.querySelector(".loader");
+  loader.style.display = "block";
+  weather = await getLocationWeatherData(location).finally(() => {
+    loader.style.display = "none";
+  });
+}
+
 export function initializeForm() {
   const form = document.querySelector("form");
   const input = document.querySelector("input");
@@ -65,7 +73,7 @@ export function initializeForm() {
     e.preventDefault();
     input.style.paddingTop = "0px";
     const location = getUserInputLocation();
-    weather = await getLocationWeatherData(location);
+    await getWeather(location);
     if (!weather) {
       alert("Location not found. Please try another search.");
       return;
