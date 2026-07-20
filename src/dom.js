@@ -63,6 +63,7 @@ export function initializeForm() {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    input.style.paddingTop = "0px";
     const location = getUserInputLocation();
     weather = await getLocationWeatherData(location);
     if (!weather) {

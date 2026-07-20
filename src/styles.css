@@ -9,6 +9,10 @@ body {
   justify-content: center;
 }
 
+.searchContainer {
+  padding-left: 35px;
+}
+
 input {
   color: gray;
   background-color: transparent;
@@ -16,6 +20,11 @@ input {
   border-bottom: 1px solid whitesmoke;
   text-align: center;
   letter-spacing: 3px;
+  padding-top: 250px;
+}
+
+svg {
+  vertical-align: -5px;
 }
 
 input:focus {
