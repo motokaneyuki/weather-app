@@ -11,21 +11,19 @@ async function getWeatherAPI(location) {
 }
 
 function getSpecificDataFromAPI(data) {
-  const address = data.address;
-  const temperature = `${data.currentConditions.temp}°F`;
+  const temperature = data.currentConditions.temp;
+  const tempInCelsius = fahrenheitToCelsius(temperature);
   const conditions = data.currentConditions.conditions;
   const uvindex = data.currentConditions.uvindex;
   const windspeed = `${data.currentConditions.windspeed} m/s`;
   const precipprob = `${data.currentConditions.precipprob}%`;
-  const icon = data.currentConditions.icon;
   return {
-    address,
     temperature,
+    tempInCelsius,
     conditions,
     uvindex,
     windspeed,
     precipprob,
-    icon,
   };
 }
 

@@ -1,8 +1,14 @@
-import { getLocationWeatherData, fahrenheitToCelsius } from "./app.js";
+import { getLocationWeatherData } from "./app.js";
 
 const conditions = document.querySelector(".conditions");
 const extraInfo = document.querySelector(".extraInfo");
 const temperature = document.querySelector(".temperature");
+const convertContainer = document.querySelector(".convertContainer");
+const convert = document.createElement("button");
+convert.classList.add("convert");
+convert.textContent = "Convert to Celsius";
+
+let weather;
 
 function getUserInputLocation() {
   const location = document.querySelector("#location").value;
@@ -10,9 +16,9 @@ function getUserInputLocation() {
 }
 
 function renderScreen(weather) {
+  convertContainer.appendChild(convert);
+
   const keys = [
-    // "icon",
-    // "address",
     "conditions",
     "uvindex",
     "windspeed",
@@ -34,7 +40,11 @@ function renderScreen(weather) {
       div.textContent = "Chance of Rain: " + weather[key];
       extraInfo.appendChild(div);
     } else if (key === "temperature") {
-      div.textContent = weather[key];
+      if (convert.classList.contains("celsius")) {
+        div.textContent = weather.tempInCelsius + "°C";
+      } else {
+        div.textContent = weather[key] + "°F";
+      }
       temperature.appendChild(div);
     } else {
       div.textContent = weather[key];
@@ -49,7 +59,7 @@ export function initializeForm() {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const location = getUserInputLocation();
-    const weather = await getLocationWeatherData(location);
+    weather = await getLocationWeatherData(location);
     clearScreen();
     renderScreen(weather);
   });
@@ -60,3 +70,14 @@ function clearScreen() {
   extraInfo.replaceChildren();
   temperature.replaceChildren();
 }
+
+convert.addEventListener("click", () => {
+  convert.classList.toggle("celsius");
+  if (convert.classList.contains("celsius")) {
+    convert.textContent = "Convert to Fahrenheit";
+  } else {
+    convert.textContent = "Convert to Celsius";
+  }
+  clearScreen();
+  renderScreen(weather);
+});
